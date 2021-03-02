@@ -14,7 +14,7 @@ namespace eonix_ex1.Models
             if (e.Trick == MonkeyTrick.acrobatics) { action = "applause"; }
             else action = "whistle";
 
-            Console.WriteLine("{0} for {1} on {2}.", action, (sender as Monkey).Name, e.Name);
+            Console.WriteLine("{0} for {1} on {2}.", action, (sender as Monkey).Name, e.TrickName);
         }
     }
 }

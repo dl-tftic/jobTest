@@ -4,7 +4,6 @@ using System.Text;
 
 namespace eonix_ex1.Models
 {
-    // public delegate EventArgs Execute(MonkeyExecute monkeyExecute);
 
     public enum MonkeyTrick
     {
@@ -20,10 +19,10 @@ namespace eonix_ex1.Models
                                     set { _monkeyTrick = value; }
                                  }
 
-        private string _name;
-        public string Name { 
-                             get => _name;
-                             set { _name = value; }
+        private string _trickName;
+        public string TrickName { 
+                             get => _trickName;
+                             set { _trickName = value; }
                             }
 
     }
@@ -32,29 +31,21 @@ namespace eonix_ex1.Models
     {
         public event EventHandler<MonkeyEventArgs> ExecuteTrick;
 
-        private MonkeyEventArgs _eventArgs;
-
         public string Name { get; set; }
 
         public Monkey()
         {
-            this._eventArgs = new MonkeyEventArgs();
+            
         }
 
         public void WalkOnHands()
         {
-            // OnExecute?.Invoke(MonkeyExecute.acrobatics);
-            this._eventArgs.Trick = MonkeyTrick.acrobatics;
-            this._eventArgs.Name = "Walk on hands";
-            OnExecuteTrick(this._eventArgs);
+            OnExecuteTrick(this.GetMonkeyEvent(MonkeyTrick.acrobatics, "Walk on hands"));
         }
 
         public void TheBareNecessities()
         {
-            // OnExecute?.Invoke(MonkeyExecute.music);
-            this._eventArgs.Trick = MonkeyTrick.music;
-            this._eventArgs.Name = "The bare necessities";
-            OnExecuteTrick(this._eventArgs);
+            OnExecuteTrick(this.GetMonkeyEvent( MonkeyTrick.music, "The bare necessities"));
         }
 
         protected void OnExecuteTrick(MonkeyEventArgs e)
@@ -64,6 +55,11 @@ namespace eonix_ex1.Models
             {
                 handler(this, e);
             }
+        }
+
+        private MonkeyEventArgs GetMonkeyEvent(MonkeyTrick trick, string trickName)
+        {
+            return new MonkeyEventArgs() { Trick = trick, TrickName = trickName };
         }
     }
 }
